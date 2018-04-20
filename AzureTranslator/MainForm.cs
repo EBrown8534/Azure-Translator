@@ -29,17 +29,21 @@ namespace AzureTranslator
         private static extern int SetFocus(int hWnd);
 
         public string Translation { get; set; }
+        public int SourceLanguageId { get; set; }
         public int DestinationLanguageId { get; set; }
-        
-        public MainForm(string key, string text, int destinationLanguageId, IEnumerable<string> cultures)
+
+        public MainForm(string key, string text, int sourceLanguageId, int destinationLanguageId, IEnumerable<string> cultures)
         {
             InitializeComponent();
             tbText.Text = text;
             _key = key;
 
+            cbSourceLanguage.Items.AddRange(cultures.ToArray());
             cbDestinationLanguage.Items.AddRange(cultures.ToArray());
-            cbSourceLanguage.SelectedIndex = 0;
+
+            cbSourceLanguage.SelectedIndex = sourceLanguageId;
             cbDestinationLanguage.SelectedIndex = destinationLanguageId;
+
             Shown += Form1_Shown;
         }
 
@@ -50,8 +54,16 @@ namespace AzureTranslator
 
         private async void btnTranslate_Click(object sender, EventArgs e)
         {
+            SourceLanguageId = cbSourceLanguage.SelectedIndex;
             DestinationLanguageId = cbDestinationLanguage.SelectedIndex;
-            Translation = await AzureTranslateApi.TranslateText(_key, tbText.Text, cbDestinationLanguage.Text.Split(':')[0]);
+
+            Translation =
+                await AzureTranslateApi.TranslateText(
+                    _key,
+                    tbText.Text,
+                    cbDestinationLanguage.Text.Split(':')[0],
+                    cbSourceLanguage.Text == "Auto" ? null : cbSourceLanguage.Text.Split(':')[0]);
+
             DialogResult = DialogResult.OK;
             Close();
         }

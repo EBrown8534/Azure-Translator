@@ -45,7 +45,6 @@
             this.lblSourceLanguage.Size = new System.Drawing.Size(44, 13);
             this.lblSourceLanguage.TabIndex = 0;
             this.lblSourceLanguage.Text = "Source:";
-            this.lblSourceLanguage.Visible = false;
             // 
             // cbSourceLanguage
             // 
@@ -59,7 +58,6 @@
             this.cbSourceLanguage.Name = "cbSourceLanguage";
             this.cbSourceLanguage.Size = new System.Drawing.Size(265, 21);
             this.cbSourceLanguage.TabIndex = 1;
-            this.cbSourceLanguage.Visible = false;
             // 
             // cbDestinationLanguage
             // 
@@ -102,10 +100,10 @@
             this.tbText.Location = new System.Drawing.Point(12, 12);
             this.tbText.Multiline = true;
             this.tbText.Name = "tbText";
-            this.tbText.Size = new System.Drawing.Size(334, 100);
+            this.tbText.Size = new System.Drawing.Size(334, 73);
             this.tbText.TabIndex = 5;
             // 
-            // Form1
+            // MainForm
             // 
             this.AcceptButton = this.btnTranslate;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -118,7 +116,7 @@
             this.Controls.Add(this.cbSourceLanguage);
             this.Controls.Add(this.lblSourceLanguage);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
-            this.Name = "Form1";
+            this.Name = "MainForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.Manual;
             this.Text = "Translate Text";
             this.ResumeLayout(false);

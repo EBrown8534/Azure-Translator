@@ -44,6 +44,7 @@ namespace AzureTranslator
         private delegate int KeyboardHookProc(int code, int wParam, ref KeyboardHookStruct lParam);
         private KeyboardHookProc _keyboardHookProc;
         private IntPtr _hHook = IntPtr.Zero;
+        private int _sourceLanguageId = 0;
         private int _destinationLanguageId = 0;
         private bool _controlPressed = false;
         private bool _shiftPressed = false;
@@ -90,7 +91,7 @@ namespace AzureTranslator
                 return;
             }
 
-            MainForm form = new MainForm(_configuration.AzureCognitiveServicesTextTranslationApiKey, ClipboardListener.GetClipboardText(), _destinationLanguageId, _cultures.Except(_configuration.DisabledLanguages));
+            MainForm form = new MainForm(_configuration.AzureCognitiveServicesTextTranslationApiKey, ClipboardListener.GetClipboardText(), _sourceLanguageId, _destinationLanguageId, _cultures.Except(_configuration.DisabledLanguages));
             int x = Control.MousePosition.X - 30; // Offset to button
             int y = Control.MousePosition.Y - 190;
 
