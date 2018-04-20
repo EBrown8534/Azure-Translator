@@ -12,7 +12,7 @@ namespace AzureTranslator
     {
         public const string DEFAULT_FILE = "Config.xml";
 
-        public List<string> DisabledLanguages { get; set; }
+        public List<string> DisabledLanguages { get; set; } = new List<string>();
         public string AzureCognitiveServicesTextTranslationApiKey { get; set; }
 
         public static bool Exists(string file) => File.Exists(file);
