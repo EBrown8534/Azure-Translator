@@ -45,7 +45,7 @@ namespace AzureTranslator
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            var bitmap = new Bitmap("Translate Icon.png");
+            var bitmap = new Bitmap("Translate Icon 2.png");
 
             _sharedMutex.WaitOne();
             MessageBox.Show("Translation Clipboard Helper Started, CTRL+SHIFT+V to use.", MESSAGEBOX_TITLE, MessageBoxButtons.OK);
