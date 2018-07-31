@@ -29,7 +29,7 @@ namespace AzureTranslator
             public int DWExtraInfo;
         }
 
-        private const int WH_KEYBOARD_LL = 13;
+        private const int WH_KEYBOARD_LL = 0x00D;
         private const int WM_KEYDOWN = 0x100;
         private const int WM_KEYUP = 0x101;
         private const int WM_SYSKEYDOWN = 0x104;
@@ -87,8 +87,19 @@ namespace AzureTranslator
         {
             if (string.IsNullOrWhiteSpace(_configuration.AzureCognitiveServicesTextTranslationApiKey))
             {
-                MessageBox.Show("You have not entered an Azure Cognitive Services Text Translation API Key, please right-click the icon in the notification tray, select \"Settings\", and provide an appropriate key.", Program.MESSAGEBOX_TITLE, MessageBoxButtons.OK);
-                return;
+                if (MessageBox.Show("You must enter an Azure Cognitive Services API Key by right-clicking the icon in the notification tray, selecting \"Settings\", and providing an appropriate key.\r\n\r\nWould you like to open the \"Settings\" dialog?", Program.MESSAGEBOX_TITLE, MessageBoxButtons.YesNo) == DialogResult.Yes)
+                {
+                    var settingsForm = new SettingsForm(Program.Cultures);
+                    if (settingsForm.ShowDialog() == DialogResult.OK)
+                    {
+                        ReloadSettings();
+                    }
+                }
+
+                if (string.IsNullOrWhiteSpace(_configuration.AzureCognitiveServicesTextTranslationApiKey))
+                {
+                    return;
+                }
             }
 
             MainForm form = new MainForm(_configuration.AzureCognitiveServicesTextTranslationApiKey, ClipboardListener.GetClipboardText(), _sourceLanguageId, _destinationLanguageId, _cultures.Except(_configuration.DisabledLanguages));

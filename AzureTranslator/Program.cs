@@ -12,8 +12,9 @@ namespace AzureTranslator
     {
         public const string MESSAGEBOX_TITLE = "Translation Clipboard Helper";
 
-        private static IEnumerable<string> _cultures = System.Globalization.CultureInfo.GetCultures(System.Globalization.CultureTypes.SpecificCultures).Select(x => $"{x.Name}: {x.DisplayName}");
-        private static KeyboardHookHandler _keyboardHook = new KeyboardHookHandler(_cultures);
+        public static IEnumerable<string> Cultures { get; } = System.Globalization.CultureInfo.GetCultures(System.Globalization.CultureTypes.SpecificCultures).Select(x => $"{x.Name}: {x.DisplayName}");
+
+        private static KeyboardHookHandler _keyboardHook = new KeyboardHookHandler(Cultures);
         private static NotifyIcon _notifyIcon;
         private static Mutex _sharedMutex = new Mutex();
 
@@ -21,7 +22,7 @@ namespace AzureTranslator
 
         private static void _SettingsMenuItem_Click(object sender, EventArgs e)
         {
-            var form = new SettingsForm(_cultures);
+            var form = new SettingsForm(Cultures);
             if (form.ShowDialog() == DialogResult.OK)
             {
                 _keyboardHook.ReloadSettings();
